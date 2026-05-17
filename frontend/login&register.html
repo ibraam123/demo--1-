@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+                rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+                rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+                rel="stylesheet" />
+        <script id="tailwind-config">
+                tailwind.config = {
+                        darkMode: "class",
+                        theme: {
+                                extend: {
+                                        "colors": {
+                                                "surface-container-low": "#f3f4f5",
+                                                "primary-fixed": "#d1e4ff",
+                                                "primary": "#0061a4",
+                                                "secondary-fixed": "#d6e5ef",
+                                                "primary-container": "#2196f3",
+                                                "on-tertiary": "#ffffff",
+                                                "on-tertiary-container": "#452200",
+                                                "surface-container-lowest": "#ffffff",
+                                                "inverse-on-surface": "#f0f1f2",
+                                                "inverse-primary": "#9ecaff",
+                                                "secondary": "#526069",
+                                                "on-primary-fixed-variant": "#00497d",
+                                                "tertiary": "#904d00",
+                                                "background": "#f8f9fa",
+                                                "on-error": "#ffffff",
+                                                "inverse-surface": "#2e3132",
+                                                "on-secondary-fixed": "#0f1d25",
+                                                "on-surface-variant": "#404752",
+                                                "on-tertiary-fixed-variant": "#6d3900",
+                                                "tertiary-fixed": "#ffdcc2",
+                                                "on-primary": "#ffffff",
+                                                "on-background": "#191c1d",
+                                                "primary-fixed-dim": "#9ecaff",
+                                                "on-secondary": "#ffffff",
+                                                "outline-variant": "#bfc7d4",
+                                                "surface-bright": "#f8f9fa",
+                                                "outline": "#707883",
+                                                "tertiary-container": "#db7900",
+                                                "secondary-container": "#d3e2ed",
+                                                "on-secondary-container": "#56656e",
+                                                "surface-variant": "#e1e3e4",
+                                                "on-secondary-fixed-variant": "#3b4951",
+                                                "surface-container-highest": "#e1e3e4",
+                                                "error-container": "#ffdad6",
+                                                "on-primary-container": "#002c4f",
+                                                "surface-container-high": "#e7e8e9",
+                                                "on-surface": "#191c1d",
+                                                "on-primary-fixed": "#001d36",
+                                                "surface-container": "#edeeef",
+                                                "secondary-fixed-dim": "#bac9d3",
+                                                "surface-tint": "#0061a4",
+                                                "surface": "#f8f9fa",
+                                                "tertiary-fixed-dim": "#ffb77b",
+                                                "error": "#ba1a1a",
+                                                "on-tertiary-fixed": "#2e1500",
+                                                "surface-dim": "#d9dadb",
+                                                "on-error-container": "#93000a"
+                                        },
+                                        "borderRadius": {
+                                                "DEFAULT": "0.25rem",
+                                                "lg": "0.5rem",
+                                                "xl": "0.75rem",
+                                                "full": "9999px"
+                                        },
+                                        "spacing": {
+                                                "md": "24px",
+                                                "xs": "8px",
+                                                "sm": "16px",
+                                                "xl": "80px",
+                                                "base": "4px",
+                                                "lg": "48px",
+                                                "gutter": "24px",
+                                                "container-max": "1280px"
+                                        },
+                                        "fontFamily": {
+                                                "button": ["Inter"],
+                                                "label-sm": ["Inter"],
+                                                "h1": ["Inter"],
+                                                "body-lg": ["Inter"],
+                                                "h2": ["Inter"],
+                                                "body-md": ["Inter"],
+                                                "h3": ["Inter"]
+                                        },
+                                        "fontSize": {
+                                                "button": ["16px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                                                "label-sm": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                                                "h1": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                                                "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                                                "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                                                "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                                                "h3": ["24px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600" }]
+                                        }
+                                },
+                        },
+                }
+        </script>
+        <style>
+                body {
+                        font-family: 'Inter', sans-serif;
+                }
+
+                .material-symbols-outlined {
+                        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+                }
+        </style>
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+        <!-- TopNavBar: Execution of Shared Component logic -->
+        <!-- Nav is suppressed here as per "Linear/Transactional" rule in Shared Components Logic -->
+        <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+                <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                        <a class="font-['Inter'] text-sm font-medium tracking-tight text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-2"
+                                href="home.html">
+                                <span class="material-symbols-outlined">arrow_back</span>
+                                Back to Home
+                        </a>
+                        <div class="text-2xl font-black tracking-tighter text-blue-600">Velocify</div>
+                </div>
+        </header>
+        <main class="flex-grow flex items-center justify-center px-6 py-xl">
+                <div class="w-full max-w-md">
+                        <!-- Glassmorphism Form Container -->
+                        <div
+                                class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+                                <!-- Branding & Title -->
+                                <div class="text-center mb-md">
+                                        <h1 id="form-title" class="font-h1 text-h1 text-on-surface mb-xs">Welcome Back</h1>
+                                        <p id="form-subtitle" class="font-body-md text-body-md text-on-surface-variant">Access your premium
+                                                fleet and bookings.</p>
+                                </div>
+                                <!-- Tab Switcher -->
+                                <div class="flex p-base bg-surface-container rounded-lg mb-md">
+                                        <button id="login-tab" onclick="switchTab('login')"
+                                                class="flex-1 py-xs rounded-md text-label-sm font-label-sm bg-surface-container-lowest text-primary shadow-sm transition-all">
+                                                Login
+                                        </button>
+                                        <button id="signup-tab" onclick="switchTab('signup')"
+                                                class="flex-1 py-xs rounded-md text-label-sm font-label-sm text-on-surface-variant hover:text-on-surface transition-colors">
+                                                Sign Up
+                                        </button>
+                                </div>
+                                <!-- Login Form -->
+                                <form id="login-form" class="space-y-sm" action="adminDashboard.html">
+                                        <div class="space-y-xs">
+                                                <label class="font-label-sm text-label-sm text-on-surface-variant px-1"
+                                                        for="email">Email</label>
+                                                <div class="relative">
+                                                        <span
+                                                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+                                                        <input class="w-full h-[48px] pl-12 pr-4 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary-container transition-colors placeholder:text-outline/50"
+                                                                id="email" placeholder="name@company.com"
+                                                                type="email" />
+                                                </div>
+                                        </div>
+                                        <div class="space-y-xs">
+                                                <div class="flex justify-between px-1">
+                                                        <label class="font-label-sm text-label-sm text-on-surface-variant"
+                                                                for="password">Password</label>
+                                                        <!-- <a class="font-label-sm text-label-sm text-primary hover:underline"
+                                                                href="#">Forgot?</a> -->
+                                                </div>
+                                                <div class="relative">
+                                                        <span
+                                                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+                                                        <input class="w-full h-[48px] pl-12 pr-4 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary-container transition-colors placeholder:text-outline/50"
+                                                                id="password" placeholder="••••••••" type="password" />
+                                                </div>
+                                        </div>
+                                        <div class="flex items-center gap-xs py-xs px-1">
+                                                <input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary"
+                                                        id="remember" type="checkbox" />
+                                                <label class="font-label-sm text-label-sm text-on-surface-variant"
+                                                        for="remember">Stay logged in for 30 days</label>
+                                        </div>
+                                        <button class="w-full h-[48px] bg-primary-container text-white font-button text-button rounded-lg hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2"
+                                                id="login-btn"
+                                                type="submit">
+                                                Continue to Dashboard
+                                                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                        </button>
+                                </form>
+                                <!-- Sign Up Form -->
+                                <form id="signup-form" class="hidden space-y-sm" action="adminDashboard.html">
+                                        <div class="space-y-xs">
+                                                <label class="font-label-sm text-label-sm text-on-surface-variant px-1"
+                                                        for="signup-name">Full Name</label>
+                                                <div class="relative">
+                                                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">person</span>
+                                                        <input class="w-full h-[48px] pl-12 pr-4 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary-container transition-colors placeholder:text-outline/50"
+                                                                id="signup-name" placeholder="Alex Rivers" type="text" required />
+                                                </div>
+                                        </div>
+                                        <div class="space-y-xs">
+                                                <label class="font-label-sm text-label-sm text-on-surface-variant px-1"
+                                                        for="signup-email">Email Address</label>
+                                                <div class="relative">
+                                                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">mail</span>
+                                                        <input class="w-full h-[48px] pl-12 pr-4 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary-container transition-colors placeholder:text-outline/50"
+                                                                id="signup-email" placeholder="name@company.com" type="email" required />
+                                                </div>
+                                        </div>
+                                        <div class="space-y-xs">
+                                                <label class="font-label-sm text-label-sm text-on-surface-variant px-1"
+                                                        for="signup-password">Password</label>
+                                                <div class="relative">
+                                                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[20px]">lock</span>
+                                                        <input class="w-full h-[48px] pl-12 pr-4 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary-container transition-colors placeholder:text-outline/50"
+                                                                id="signup-password" placeholder="••••••••" type="password" required />
+                                                </div>
+                                        </div>
+                                        <div class="flex items-center gap-xs py-xs px-1">
+                                                <input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary"
+                                                        id="agree-terms" type="checkbox" required />
+                                                <label class="font-label-sm text-label-sm text-on-surface-variant"
+                                                        for="agree-terms">I agree to the Terms of Service</label>
+                                        </div>
+                                        <button class="w-full h-[48px] bg-primary-container text-white font-button text-button rounded-lg hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2"
+                                                id="create-account-btn"
+                                                type="submit">
+                                                Create Account
+                                                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                        </button>
+                                </form>
+                                <!-- Divider -->
+                                <div class="relative my-md">
+                                        <div class="absolute inset-0 flex items-center">
+                                                <div class="w-full border-t border-outline-variant"></div>
+                                        </div>
+                                        <div class="relative flex justify-center text-xs">
+                                                <!-- <span
+                                                        class="px-sm bg-surface-container-lowest text-outline uppercase tracking-widest font-bold text-[10px]">Or
+                                                        continue with</span> -->
+                                        </div>
+                                </div>
+                                <!-- Social Login Buttons -->
+                                <!-- <div class="grid grid-cols-2 gap-sm">
+<button class="flex items-center justify-center gap-2 h-[48px] border border-outline-variant rounded-lg font-button text-label-sm text-on-surface hover:bg-surface-container-low transition-colors">
+<img alt="Google Logo" class="w-4 h-4" data-alt="A clean, minimalist representation of a modern technology company's logo on a white circular button. The background is a soft, high-key studio setting with light blue and grey tones. The lighting is diffused and professional, emphasizing a modern corporate aesthetic of trust and efficiency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnAbrt-3DcuBBdQUJiKSiqIXQ9e6FmUPMkeMhuVE5RRVEk_vGIrN57RdRGK2MSEJBQzBfTANVJtPGO7v6A-nsFt2uU7OQZoPyO84WlLUKrMWvMAjmMSjO97eW1UY8AI3pnsnlCAG4_Sjqs0wYhKxCKy2bycEsD-GfYXlHiEDdbUSzyXk_Qy2obKZLCe3cfOHyuLRQsntgb3InUEbB3P1KDIT-4lnMxUqMRMfux1Obl6m9Pl8G2XbTRIITvfOEDpdQPnJy7cPqPqCg"/>
+                        Google
+                    </button>
+<button class="flex items-center justify-center gap-2 h-[48px] border border-outline-variant rounded-lg font-button text-label-sm text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">ios</span>
+                        Apple
+                    </button>
+</div> -->
+                        </div>
+                        <!-- Footer / Support Link -->
+                        <p class="mt-md text-center font-label-sm text-label-sm text-on-surface-variant">
+                                Need help? <a class="text-primary hover:underline" href="#">Contact our concierge
+                                        team</a>
+                        </p>
+                </div>
+        </main>
+        <!-- Visual Background Element (Subtle soft gradient to break whitespace) -->
+        <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+                <div
+                        class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary-fixed opacity-20 blur-[120px] rounded-full">
+                </div>
+                <div
+                        class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary-fixed opacity-30 blur-[120px] rounded-full">
+                </div>
+        </div>
+        <!-- Footer: Execution of Shared Component logic -->
+        <footer class="w-full border-t border-slate-200 bg-slate-50">
+                <div class="max-w-7xl mx-auto py-12 px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+                        <div class="flex flex-col gap-2">
+                                <div class="text-lg font-bold text-slate-900">Velocify</div>
+                                <div class="font-['Inter'] text-xs text-slate-500">© 2024 Velocify Technologies. All
+                                        rights reserved.</div>
+                        </div>
+                        <div class="flex gap-md">
+                                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
+                                        href="#">Terms of Service</a>
+                                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
+                                        href="#">Privacy Policy</a>
+                                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
+                                        href="#">Cookie Settings</a>
+                                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
+                                        href="#">Contact Support</a>
+                        </div>
+                </div>
+        </footer>
+        <script>
+                function switchTab(tab) {
+                        const loginForm = document.getElementById('login-form');
+                        const signupForm = document.getElementById('signup-form');
+                        const loginTab = document.getElementById('login-tab');
+                        const signupTab = document.getElementById('signup-tab');
+                        const formTitle = document.getElementById('form-title');
+                        const formSubtitle = document.getElementById('form-subtitle');
+
+                        if (tab === 'login') {
+                                loginForm.classList.remove('hidden');
+                                signupForm.classList.add('hidden');
+                                
+                                loginTab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                                loginTab.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
+                                
+                                signupTab.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                                signupTab.classList.add('text-on-surface-variant', 'hover:text-on-surface');
+                                
+                                formTitle.textContent = 'Welcome Back';
+                                formSubtitle.textContent = 'Access your premium fleet and bookings.';
+                        } else {
+                                signupForm.classList.remove('hidden');
+                                loginForm.classList.add('hidden');
+                                
+                                signupTab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                                signupTab.classList.remove('text-on-surface-variant', 'hover:text-on-surface');
+                                
+                                loginTab.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+                                loginTab.classList.add('text-on-surface-variant', 'hover:text-on-surface');
+                                
+                                formTitle.textContent = 'Create an Account';
+                                formSubtitle.textContent = 'Join Velocify to book your first ride.';
+                        }
+                }
+
+                document.addEventListener('DOMContentLoaded', () => {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const tab = urlParams.get('tab');
+                        if (tab === 'signup') {
+                                switchTab('signup');
+                        }
+                });
+        </script>
+
+        <script type="module" src="./assets/js/login&register.js"></script>
+</body>
+
+</html>

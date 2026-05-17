@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Velocify Admin - Fleet Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#f3f4f5",
+                    "primary-fixed": "#d1e4ff",
+                    "primary": "#0061a4",
+                    "secondary-fixed": "#d6e5ef",
+                    "primary-container": "#2196f3",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-container": "#452200",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "inverse-primary": "#9ecaff",
+                    "secondary": "#526069",
+                    "on-primary-fixed-variant": "#00497d",
+                    "tertiary": "#904d00",
+                    "background": "#f8f9fa",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed": "#0f1d25",
+                    "on-surface-variant": "#404752",
+                    "on-tertiary-fixed-variant": "#6d3900",
+                    "tertiary-fixed": "#ffdcc2",
+                    "on-primary": "#ffffff",
+                    "on-background": "#191c1d",
+                    "primary-fixed-dim": "#9ecaff",
+                    "on-secondary": "#ffffff",
+                    "outline-variant": "#bfc7d4",
+                    "surface-bright": "#f8f9fa",
+                    "outline": "#707883",
+                    "tertiary-container": "#db7900",
+                    "secondary-container": "#d3e2ed",
+                    "on-secondary-container": "#56656e",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary-fixed-variant": "#3b4951",
+                    "surface-container-highest": "#e1e3e4",
+                    "error-container": "#ffdad6",
+                    "on-primary-container": "#002c4f",
+                    "surface-container-high": "#e7e8e9",
+                    "on-surface": "#191c1d",
+                    "on-primary-fixed": "#001d36",
+                    "surface-container": "#edeeef",
+                    "secondary-fixed-dim": "#bac9d3",
+                    "surface-tint": "#0061a4",
+                    "surface": "#f8f9fa",
+                    "tertiary-fixed-dim": "#ffb77b",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#2e1500",
+                    "surface-dim": "#d9dadb",
+                    "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "xs": "8px",
+                    "sm": "16px",
+                    "xl": "80px",
+                    "base": "4px",
+                    "lg": "48px",
+                    "gutter": "24px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "button": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "h1": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "h2": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h3": ["Inter"]
+            },
+            "fontSize": {
+                    "button": ["16px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                    "label-sm": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h3": ["24px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<div class="flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="bg-white dark:bg-slate-950 h-screen w-64 border-r border-slate-200 dark:border-slate-800 flex flex-col p-4 gap-2 fixed left-0 top-0 z-40">
+<div class="mb-lg px-4">
+<h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">Admin Console</h1>
+<p class="text-xs text-slate-500 font-label-sm uppercase tracking-wider mt-1">Fleet Overview</p>
+</div>
+<nav class="flex-grow flex flex-col gap-2">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg hover:translate-x-1 transition-transform duration-200" href="adminDashboard.html">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm">Dashboard</span>
+</a>
+<!-- Fleet (Active) -->
+<a id="btn-sidebar-fleet" class="flex items-center gap-3 px-4 py-3 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-semibold hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+<span class="font-label-sm">Fleet</span>
+</a>
+<!-- Bookings -->
+<a id="btn-sidebar-bookings" class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-label-sm">Bookings</span>
+</a>
+<!-- Revenue -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-sm">Revenue</span>
+</a>
+<!-- Users -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-label-sm">Users</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg" href="home.html">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow ml-64 p-lg">
+<!-- Header Section -->
+<header class="flex justify-between items-end mb-lg">
+<div>
+<h2 class="font-h2 text-on-surface">Manage Fleet</h2>
+<p class="text-on-surface-variant font-body-md mt-base">Review and update car listings across the global network.</p>
+</div>
+<button class="bg-primary-container text-on-primary-container px-md py-sm rounded-lg font-button flex items-center gap-2 shadow-sm hover:opacity-90 active:scale-95 transition-all" onclick="window.location.href='carPosting.html'">
+<span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
+                    Add New Car
+                </button>
+</header>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-lg">
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 shadow-sm flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm">Total Vehicles</span>
+<span class="text-h3 font-bold">1,284</span>
+<span class="text-xs text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span> +12% this month
+                    </span>
+</div>
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 shadow-sm flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm">Available Now</span>
+<span class="text-h3 font-bold text-primary">842</span>
+<div class="w-full bg-surface-container rounded-full h-1 mt-1">
+<div class="bg-primary h-1 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 shadow-sm flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm">In Service</span>
+<span class="text-h3 font-bold">42</span>
+<span class="text-xs text-tertiary-container font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="warning">warning</span> Priority Attention
+                    </span>
+</div>
+<div class="bg-white p-md rounded-xl border border-outline-variant/30 shadow-sm flex flex-col gap-2">
+<span class="text-on-surface-variant font-label-sm">Total Revenue</span>
+<span class="text-h3 font-bold">$124,500</span>
+<span class="text-xs text-slate-500">Gross / 30 Days</span>
+</div>
+</section>
+<!-- Table View -->
+<div class="bg-white rounded-xl border border-outline-variant/30 shadow-sm overflow-hidden">
+<!-- Search/Filter Bar -->
+<div class="px-md py-sm border-b border-outline-variant/20 flex items-center justify-between gap-md">
+<div class="relative flex-grow max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary-container text-body-md h-[48px]" placeholder="Search by car name, owner, or ID..." type="text"/>
+</div>
+<div class="flex gap-sm">
+<button class="px-sm py-2 bg-surface-container-high rounded-lg font-label-sm text-on-surface flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span> Filter
+                        </button>
+<button class="px-sm py-2 bg-surface-container-high rounded-lg font-label-sm text-on-surface flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="download">download</span> Export CSV
+                        </button>
+</div>
+</div>
+<!-- Actual Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50 border-b border-outline-variant/20">
+<th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">ID</th>
+<th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Car Name</th>
+<th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Owner</th>
+<th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Price/Day</th>
+<th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+<th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-md py-4 text-body-md font-mono text-slate-400">#VL-8291</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-8 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A side-profile shot of a sleek electric high-performance sedan in a shimmering sapphire blue finish. The car is parked inside a high-end minimalist showroom with clean polished concrete floors and bright, overhead studio lighting that emphasizes its aerodynamic contours. The overall aesthetic is professional, futuristic, and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYytZuJVDQoqrpMGf57Yw5pa23idnyzX0Qa99x4uj29wnx1c4XYIkGNunst_0tIssu75cU4KV1IVQehlfkzTBlCp_UYkmFzk0aFfE9TzKjnkFL24cl1UhhIgtXDocjW4wPzrEQNpnS8cGJe2LGBfCmIdr0ZkTlvsT2gT7vb6p12iaR2zo3WwBycPT2Aie8ptUSEOeIh4aOFZYKTNU8mznLN29C0IFLMC2_MvcVdEtN6sKo6stw3Ooqh-8VqA7ZdNK7rTw3_d29XBw"/>
+</div>
+<span class="font-semibold text-on-surface">Tesla Model S Plaid</span>
+</div>
+</td>
+<td class="px-md py-4 text-on-surface-variant font-body-md">Robert Fox</td>
+<td class="px-md py-4 text-on-surface font-semibold">$180.00</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span> Available
+                                    </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-md py-4 text-body-md font-mono text-slate-400">#VL-4432</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-8 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A front three-quarter view of a luxury SUV in a deep charcoal grey metallic finish. The vehicle is positioned in a sun-drenched coastal parking lot during the golden hour, with soft warm light highlighting the chrome details and large alloy wheels. The mood is sophisticated and evokes a sense of effortless travel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTWFfzWdugHJO6xEEMd-_V95LqK3qMx0bsSECHfIo9h6LO_v9jXNA5Jdly3_94_HQbUkdhl7nOZbp35Vh17Cpa3itXGJsqTwWLrj6JkUm8JMWreqpJWsJj70Miyhd5QsVEruvfvydvsU6T5SSKLGMPRc3JGha5iQmJOT_TYAfJxBqW5BOP2W1mlqYxGVPhLooJIqKlNIXIo9QLSmtlbs3So9ts0jV1eoL-wNYkgIfo7pLc-L-aVtz_JlucWAOiLfCi3eZ-gJdxOSs"/>
+</div>
+<span class="font-semibold text-on-surface">Audi Q8 Prestige</span>
+</div>
+</td>
+<td class="px-md py-4 text-on-surface-variant font-body-md">Jane Cooper</td>
+<td class="px-md py-4 text-on-surface font-semibold">$145.00</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+<span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-1.5"></span> Booked
+                                    </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-md py-4 text-body-md font-mono text-slate-400">#VL-1102</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-8 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A wide-angle landscape shot of a classic silver sports car driving along a winding mountain pass at dusk. The headlights of the car are on, casting a cool white glow against the deep purples and oranges of the evening sky. The image is captured with a shallow depth of field, emphasizing the car's sleek lines against the blurred alpine background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlsqlh7mLmlODJIl1XZ5jdTP94F4iDJzOVERw_9VJ5Py69I0A2tIcFXezeYOTP1GYUaIdbFTjlS2zYNO2en6wyYYyh0nalCPzEEJnQUeyR_DYi6t7DEn6TcQzgGrkYsu05OblqhpJm5Lz_Uv3h_yf8BCWGm-kCu3rrjGJy7GJacieiDIg8_9uBNcrVX_3pDePN5NPPNrK37HbH0f8grbozghg46rA1rkrfOJk3qSHGassUxS5SfBrmqq1yhTXWIeQ6K32lONhM6zA"/>
+</div>
+<span class="font-semibold text-on-surface">Porsche 911 Carrera</span>
+</div>
+</td>
+<td class="px-md py-4 text-on-surface-variant font-body-md">Cody Fisher</td>
+<td class="px-md py-4 text-on-surface font-semibold">$210.00</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+<span class="w-1.5 h-1.5 bg-yellow-500 rounded-full mr-1.5"></span> Maintenance
+                                    </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-md py-4 text-body-md font-mono text-slate-400">#VL-5561</td>
+<td class="px-md py-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-8 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up dramatic shot of the front grille and aggressive LED headlights of a modern black luxury sedan. The car is parked in a rainy urban environment at night, with streetlights reflecting off the wet pavement and the car's deep black paint. The lighting is high-contrast, creating a moody, tech-focused atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3vDipoPXoxS1R1q3vLDKCqobMVk06W10NFXMjZW2z9L67ms7FKnWWCh2Qb8e-w5W5jn7fQCAeJJaVIRYBCP20SxWhkL0wbbwsO-B8P7FUM947qYeJq0Nb9n5d9E3uLNSF1b50G65OCJzvh8Wb3US8TYnr2YFJDa4cAhd2nFBGAFwdWZmGAuLBiGIflLr1M_4-HGUI5G2M_bgZwyKDeFLStO63_b3x1_urFp9xpzHBdELbhi9ZUW4T1khOGyzP70Nv6SZqHJ3YmWE"/>
+</div>
+<span class="font-semibold text-on-surface">BMW M4 Competition</span>
+</div>
+</td>
+<td class="px-md py-4 text-on-surface-variant font-body-md">Guy Hawkins</td>
+<td class="px-md py-4 text-on-surface font-semibold">$195.00</td>
+<td class="px-md py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+<span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span> Available
+                                    </span>
+</td>
+<td class="px-md py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit">edit</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-md py-4 border-t border-outline-variant/10 flex items-center justify-between">
+<span class="font-label-sm text-on-surface-variant">Showing 4 of 1,284 cars</span>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-400 hover:bg-slate-50 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary-container text-on-primary-container font-label-sm">1</button>
+<button class="w-8 h-8 rounded-lg hover:bg-slate-50 font-label-sm text-on-surface">2</button>
+<button class="w-8 h-8 rounded-lg hover:bg-slate-50 font-label-sm text-on-surface">3</button>
+<span class="text-slate-300">...</span>
+<button class="w-8 h-8 rounded-lg hover:bg-slate-50 font-label-sm text-on-surface">32</button>
+<button class="p-2 text-slate-400 hover:bg-slate-50 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</footer>
+</main>
+</div>
+
+<!-- Firebase Auth and Dynamic Admin Dashboard Script -->
+<script type="module">
+import { auth } from "./assets/js/firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tableHeader = document.querySelector('thead');
+    const tableBody = document.querySelector('tbody');
+    const headerTitle = document.querySelector('h2.font-h2');
+    const headerDesc = document.querySelector('p.text-on-surface-variant');
+    const addNewCarBtn = document.querySelector('header button');
+
+    const btnFleet = document.getElementById('btn-sidebar-fleet');
+    const btnBookings = document.getElementById('btn-sidebar-bookings');
+
+    let carsList = [];
+    let currentTab = 'fleet';
+
+    function setActiveTab(tab) {
+        currentTab = tab;
+        if (tab === 'fleet') {
+            btnFleet.className = "flex items-center gap-3 px-4 py-3 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-semibold hover:translate-x-1 transition-transform duration-200";
+            btnBookings.className = "flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg hover:translate-x-1 transition-transform duration-200";
+            addNewCarBtn.style.display = 'flex';
+        } else {
+            btnBookings.className = "flex items-center gap-3 px-4 py-3 text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-lg font-semibold hover:translate-x-1 transition-transform duration-200";
+            btnFleet.className = "flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-lg hover:translate-x-1 transition-transform duration-200";
+            addNewCarBtn.style.display = 'none';
+        }
+    }
+
+    async function loadFleet() {
+        setActiveTab('fleet');
+        headerTitle.textContent = "Manage Fleet";
+        headerDesc.textContent = "Review and update car listings across the global network.";
+
+        tableHeader.innerHTML = `
+            <tr class="bg-surface-container-low/50 border-b border-outline-variant/20">
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">ID</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Car Name</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Color</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Price/Day</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider text-right">Actions</th>
+            </tr>
+        `;
+
+        try {
+            const res = await fetch('http://localhost:8080/api/cars');
+            if (!res.ok) throw new Error('API Error');
+            const data = await res.json();
+            carsList = data.content || [];
+
+            if (carsList.length > 0) {
+                tableBody.innerHTML = '';
+                carsList.forEach(car => {
+                    const images = {
+                        'porsche': 'https://lh3.googleusercontent.com/aida-public/AB6AXuACgL9WWB_mSSE5nQ5nMKaDzShcVKejxaQgDVMzPVRAR1UpOo3hQrq122C23Ut-AorUYtoYshsxkkidiU3YmCNlSEsbvEklesXbWy754jKs3gCa9WOwvPirnjmE9vAVV6f94fzA3436qHWVgoOD8v3-TAz9iP-ri6nVZfq2JxSUt35jdcNCUnq8vxghsMhOhqJbXrCXvFsTq-Tyy9iyVDRviH_H0irlChcOkRRJCc0dhwLYNz8shzo7GdT_MOuIC6aw-7b5iZuuj2s',
+                        'tesla': 'https://lh3.googleusercontent.com/aida-public/AB6AXuAns72IbzUrzLYrSNn71Y4g2WahZmFAU3DK5JArvSLCHaxSchYOtw5wTwwo0oi-0a0SQa8FIQSjseE0yuyb8t1YQmlMh8ZYKugnW6U0z9BLIOPhJ_S6E2nUjOvJJ0oj8v-Ji-q1tNKCmziMti0AO4fXaDMqKv82In7oYxIL8zDqINoA4DdjvUZFsJ_qCPvTBuYwHfEbt46x-sDthfJuG4UC7-6kKku_W1hDiPDe3rRuR3chJD6zf1mgChKaLsBSI0z_uWrWFMuIW7M',
+                        'audi': 'https://lh3.googleusercontent.com/aida-public/AB6AXuDMJQ6B9idWkrHKGtDe-qQNkZJ-272y_6JyNe4aCZjM2McmvzwKrR5Tv7EsTi9_OKLvW1kHPxNWksiCWC8Bo4HefX2vGB0IxdIcQFP_umHtzEZhfemlM16B4A2uF__rwm9B0TABzZgM7qDsUpHWe_UV1kuZRrUGJIVeZhXlyCu-2IAHA2aAcbzdbupvg867qGSxf7yjLhwf0YJjrowToYQdf87VGt6aJV1ZuHO0--A9FgNj-gW0cFPE0nveEP_uSHIzJ0UzxqEQEF8',
+                        'ferrari': 'https://lh3.googleusercontent.com/aida-public/AB6AXuAY3-mu5bRXt_0SmB4wotXzSr6XiUlroI_6i_Csv5Plif7t5boivzM5qkWsg42GrlB1xpctAEHmu6LvuAO3OJ6bWf7qeo3Gp16h3DTAQxO1YzT3UDOM-h8WxBdeh1oqjV0s2swFrWuIkggsW8HA4xG5jFpd2n3WTSB5890kJUGx90s8ie-0FYYvC9KIN18Th32f5smqzRAxd32pfnJei6mbtLjFA5ifqbHCkW_teGG3gecv91BQV_i3NZL0YGWkDUbRsC-W_1AF76Y'
+                    };
+
+                    let imgUrl = images.porsche;
+                    for (const key in images) {
+                        if (car.model.toLowerCase().includes(key)) {
+                            imgUrl = images[key];
+                            break;
+                        }
+                    }
+
+                    const statusClass = car.status === 'AVAILABLE' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800';
+
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50/50 transition-colors";
+                    row.innerHTML = `
+                        <td class="px-md py-4 text-body-md font-mono text-slate-400">#VL-${car.carId}</td>
+                        <td class="px-md py-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-8 rounded bg-surface-container overflow-hidden">
+                                    <img class="w-full h-full object-cover" src="${imgUrl}"/>
+                                </div>
+                                <span class="font-semibold text-on-surface">${car.model}</span>
+                            </div>
+                        </td>
+                        <td class="px-md py-4 text-on-surface-variant font-body-md">${car.color}</td>
+                        <td class="px-md py-4 text-on-surface font-semibold">$${car.dailyPrice.toFixed(2)}</td>
+                        <td class="px-md py-4">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusClass}">
+                                ${car.status}
+                            </span>
+                        </td>
+                        <td class="px-md py-4 text-right">
+                            <div class="flex justify-end gap-2">
+                                <button class="p-2 text-slate-400 hover:text-primary transition-colors">
+                                    <span class="material-symbols-outlined text-[20px]">edit</span>
+                                </button>
+                                <button class="p-2 text-slate-400 hover:text-error transition-colors">
+                                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        } catch (e) {
+            console.error("Could not fetch active cars:", e);
+        }
+    }
+
+    async function loadBookings() {
+        setActiveTab('bookings');
+        headerTitle.textContent = "My Bookings";
+        headerDesc.textContent = "Track and manage your upcoming and historical premium car rentals.";
+
+        tableHeader.innerHTML = `
+            <tr class="bg-surface-container-low/50 border-b border-outline-variant/20">
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Booking ID</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Car Model</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Start Date</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">End Date</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Total Price</th>
+                <th class="px-md py-4 font-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+            </tr>
+        `;
+
+        const user = auth.currentUser;
+        if (!user) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-md py-8 text-center text-on-surface-variant font-medium">
+                        Please <a href="login&register.html" class="text-primary underline">login</a> to view your active bookings.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        try {
+            const token = await user.getIdToken();
+            const res = await fetch('http://localhost:8080/api/bookings/my-bookings', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (!res.ok) throw new Error('API Error');
+            const bookings = await res.json();
+
+            tableBody.innerHTML = '';
+            if (bookings.length === 0) {
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-md py-8 text-center text-on-surface-variant font-medium">
+                            No bookings found. Head to the <a href="home.html" class="text-primary underline font-bold">fleet catalog</a> to book your first ride!
+                        </td>
+                    </tr>
+                `;
+            } else {
+                bookings.forEach(booking => {
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-slate-50/50 transition-colors";
+                    row.innerHTML = `
+                        <td class="px-md py-4 text-body-md font-mono text-slate-400">#BK-${booking.bookingId}</td>
+                        <td class="px-md py-4 font-semibold text-on-surface">${booking.carModel || 'Premium Fleet Vehicle'}</td>
+                        <td class="px-md py-4 text-on-surface-variant font-body-md">${booking.startDate}</td>
+                        <td class="px-md py-4 text-on-surface-variant font-body-md">${booking.endDate}</td>
+                        <td class="px-md py-4 text-primary font-bold">$${parseFloat(booking.totalPrice).toFixed(2)}</td>
+                        <td class="px-md py-4">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span> ${booking.status}
+                            </span>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        } catch (e) {
+            console.error("Could not fetch bookings:", e);
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-md py-8 text-center text-red-600 font-medium">
+                        Error fetching bookings from server.
+                    </td>
+                </tr>
+            `;
+        }
+    }
+
+    btnFleet.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadFleet();
+    });
+
+    btnBookings.addEventListener('click', (e) => {
+        e.preventDefault();
+        loadBookings();
+    });
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            loadBookings();
+        } else {
+            loadFleet();
+        }
+    });
+});
+</script>
+</body>
+
+</html>
