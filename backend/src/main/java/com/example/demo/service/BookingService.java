@@ -8,13 +8,14 @@ import com.example.demo.entity.User;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.BookingMapper;
-import com.example.demo.pattern.bridge.DailyRentalCharge;
 import com.example.demo.repository.BookingRepository;
 import com.example.demo.repository.CarRepository;
 import com.example.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -25,7 +26,6 @@ public class BookingService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
     private final BookingMapper bookingMapper;
-    private final DailyRentalCharge dailyRentalCharge;
 
     public BookingDto createBooking(Integer userId, BookingCreateDto createDto) {
         User user = userRepository.findById(userId)
@@ -42,7 +42,10 @@ public class BookingService {
             throw new BadRequestException("End date must be after start date");
         }
 
-        var totalPrice = dailyRentalCharge.calculateTotal(car, createDto.getStartDate(), createDto.getEndDate());
+        long days = ChronoUnit.DAYS.between(createDto.getStartDate(), createDto.getEndDate());
+        if (days == 0) days = 1; // Minimum 1 day charge
+        
+        BigDecimal totalPrice = car.getDailyPrice().multiply(BigDecimal.valueOf(days));
 
         Booking booking = bookingMapper.toEntity(createDto);
         booking.setUser(user);

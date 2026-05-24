@@ -6,7 +6,6 @@ import com.example.demo.entity.Car;
 import com.example.demo.entity.CarOwner;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.mapper.CarMapper;
-import com.example.demo.pattern.factory.CarFactoryProvider;
 import com.example.demo.repository.CarOwnerRepository;
 import com.example.demo.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,13 +22,14 @@ public class CarService {
     private final CarRepository carRepository;
     private final CarOwnerRepository carOwnerRepository;
     private final CarMapper carMapper;
-    private final CarFactoryProvider carFactoryProvider;
 
     public CarDto createCar(CarCreateDto createDto) {
         CarOwner owner = carOwnerRepository.findById(createDto.getOwnerId())
                 .orElseThrow(() -> new ResourceNotFoundException("CarOwner not found with id: " + createDto.getOwnerId()));
         
-        Car car = carFactoryProvider.createCar(createDto, owner);
+        Car car = carMapper.toEntity(createDto);
+        car.setOwner(owner);
+        car.setStatus("AVAILABLE");
         
         Car saved = carRepository.save(car);
         return carMapper.toDto(saved);

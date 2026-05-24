@@ -1,3 +1,23 @@
+// Function to set up redirection click handlers on buttons
+window.selectCar = function(carId, model, dailyPrice, color, year, description, image) {
+    localStorage.setItem('selectedCarId', carId);
+    localStorage.setItem('selectedCarModel', model);
+    localStorage.setItem('selectedCarPrice', dailyPrice);
+    localStorage.setItem('selectedCarColor', color);
+    localStorage.setItem('selectedCarYear', year);
+    if (description) {
+        localStorage.setItem('selectedCarDesc', description);
+    } else {
+        localStorage.removeItem('selectedCarDesc');
+    }
+    if (image) {
+        localStorage.setItem('selectedCarImg', image);
+    } else {
+        localStorage.removeItem('selectedCarImg');
+    }
+    window.location.href = 'carDetails.html';
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // State to hold current filters
     const filterState = {
@@ -15,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carListingsContainer = document.getElementById('car-listings');
     
     // Search elements
-    const searchInput = document.querySelector('input[placeholder="Search city or airport"]');
+    const searchInput = document.querySelector('input[placeholder="Search by car model"]');
     const buttons = document.querySelectorAll('button');
     let searchBtn = null;
     buttons.forEach(btn => {
@@ -24,15 +44,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Function to set up redirection click handlers on buttons
-    window.selectCar = function(carId, model, dailyPrice, color, year) {
-        localStorage.setItem('selectedCarId', carId);
-        localStorage.setItem('selectedCarModel', model);
-        localStorage.setItem('selectedCarPrice', dailyPrice);
-        localStorage.setItem('selectedCarColor', color);
-        localStorage.setItem('selectedCarYear', year);
-        window.location.href = 'carDetails.html';
-    };
+    // Render custom cars from localStorage
+    function renderCustomCars() {
+        const customCars = JSON.parse(localStorage.getItem('velocifyCustomCars') || '[]');
+        customCars.forEach(car => {
+            // Check if card with this ID already exists (to avoid duplicate rendering)
+            if (document.getElementById(`car-card-${car.carId}`)) return;
+            
+            const card = document.createElement('div');
+            card.id = `car-card-${car.carId}`;
+            card.className = "car-card bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden group hover:shadow-[0px_8px_32px_rgba(33,150,243,0.12)] transition-all duration-300";
+            card.setAttribute('data-type', car.type.toLowerCase());
+            card.setAttribute('data-price', car.dailyPrice);
+            card.setAttribute('data-color', car.color.toLowerCase());
+            card.setAttribute('data-name', car.model.toLowerCase());
+
+            const statusClass = car.status === 'AVAILABLE' ? 'text-green-600' : 'text-yellow-600';
+            const statusText = car.status === 'AVAILABLE' ? 'Available' : 'Booked';
+
+            card.innerHTML = `
+                <div class="aspect-[16/13] bg-slate-50 p-lg relative overflow-hidden">
+                    <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="${car.image}" />
+                    <div class="absolute top-2 right-2 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full flex items-center gap-1 shadow-sm">
+                        <span class="material-symbols-outlined ${statusClass} text-sm">check_circle</span>
+                        <span class="font-label-sm text-[10px] uppercase font-bold text-on-surface">${statusText}</span>
+                    </div>
+                </div>
+                <div class="p-sm space-y-3">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-h3 text-h3 text-on-surface">${car.model}</h4>
+                            <p class="font-label-sm text-label-sm text-secondary">Year: 2026 • Color: ${car.color}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-h3 text-h3 text-primary">$${parseInt(car.dailyPrice)}</span>
+                            <span class="font-label-sm text-label-sm text-outline block">/ day</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="px-2 py-1 bg-surface-container text-on-secondary-container rounded font-label-sm text-[12px]">${car.type.toUpperCase()}</span>
+                    </div>
+                    <button class="w-full py-3 bg-primary-container text-white font-button text-button rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98] btn-rent-custom" 
+                            data-id="${car.carId}">Rent Now</button>
+                </div>
+            `;
+            // Add it at the beginning of the container
+            if (carListingsContainer) {
+                carListingsContainer.insertBefore(card, carListingsContainer.firstChild);
+            }
+        });
+
+        // Add event listeners for custom rent buttons
+        document.querySelectorAll('.btn-rent-custom').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const carId = btn.getAttribute('data-id');
+                const customCars = JSON.parse(localStorage.getItem('velocifyCustomCars') || '[]');
+                const car = customCars.find(c => c.carId === carId);
+                if (car) {
+                    selectCar(car.carId, car.model, car.dailyPrice, car.color, 2026, car.description, car.image);
+                }
+            });
+        });
+    }
 
     // Fetch and Render from Backend
     async function loadCars() {
@@ -115,6 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         } finally {
+            // Render custom cars
+            renderCustomCars();
             // Update reference list of elements to filter
             carCards = document.querySelectorAll('.car-card');
             applyFilters();

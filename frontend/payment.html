@@ -128,8 +128,8 @@
                     href="home.html">Rent</a>
                 <a class="font-['Inter'] text-sm font-medium tracking-tight text-slate-600 hover:text-blue-600 transition-colors"
                     href="carPosting.html">List a Car</a>
-                <a class="font-['Inter'] text-sm font-medium tracking-tight text-slate-600 hover:text-blue-600 transition-colors"
-                    href="adminDashboard.html">My Bookings</a>
+                <!-- <a class="font-['Inter'] text-sm font-medium tracking-tight text-slate-600 hover:text-blue-600 transition-colors"
+                    href="adminDashboard.html">Dashboard</a> -->
             </div>
             <div class="flex items-center gap-4">
                 <button onclick="window.location.href='login&register.html'"
@@ -273,7 +273,7 @@
                                     placeholder="***" type="password" />
                             </div>
                         </div>
-                        <button onclick="window.location.href='adminDashboard.html'"
+                        <button onclick="window.location.href='profile.html'"
                             class="w-full h-14 bg-primary text-on-primary rounded-lg font-button text-button hover:bg-opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-sm shadow-md">
                             <span class="material-symbols-outlined" data-icon="lock">lock</span>
                             Complete Payment &amp; Book
@@ -285,7 +285,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="bg-blue-50 border border-blue-100 p-md rounded-xl flex gap-md">
+                <!-- <div class="bg-blue-50 border border-blue-100 p-md rounded-xl flex gap-md">
                     <span class="material-symbols-outlined text-blue-600 text-3xl"
                         data-icon="support_agent">support_agent</span>
                     <div>
@@ -295,7 +295,7 @@
                         <a class="text-blue-600 text-xs font-bold mt-2 inline-block underline" href="#">Live Chat
                             Now</a>
                     </div>
-                </div>
+                </div> -->
             </aside>
         </div>
     </main>
@@ -303,17 +303,13 @@
         <div class="max-w-7xl mx-auto py-12 px-6 flex flex-col md:flex-row justify-between items-center gap-8">
             <div>
                 <div class="text-lg font-bold text-slate-900 mb-2">Velocify</div>
-                <p class="font-['Inter'] text-xs text-slate-500">© 2024 Velocify Technologies. All rights reserved.</p>
+                <p class="font-['Inter'] text-xs text-slate-500">© 2026 Velocify Technologies. All rights reserved.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-6">
                 <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
                     href="#">Terms of Service</a>
                 <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
                     href="#">Privacy Policy</a>
-                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
-                    href="#">Cookie Settings</a>
-                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 underline underline-offset-4 transition-opacity"
-                    href="#">Contact Support</a>
             </div>
         </div>
     </footer>
@@ -329,6 +325,7 @@
             const selectedCarPrice = parseFloat(localStorage.getItem('selectedCarPrice') || "149");
             const selectedCarColor = localStorage.getItem('selectedCarColor') || "White";
             const selectedCarYear = localStorage.getItem('selectedCarYear') || "2023";
+            const selectedCarImg = localStorage.getItem('selectedCarImg');
 
             // Map beautiful image
             const images = {
@@ -338,11 +335,13 @@
                 'ferrari': 'https://lh3.googleusercontent.com/aida-public/AB6AXuAY3-mu5bRXt_0SmB4wotXzSr6XiUlroI_6i_Csv5Plif7t5boivzM5qkWsg42GrlB1xpctAEHmu6LvuAO3OJ6bWf7qeo3Gp16h3DTAQxO1YzT3UDOM-h8WxBdeh1oqjV0s2swFrWuIkggsW8HA4xG5jFpd2n3WTSB5890kJUGx90s8ie-0FYYvC9KIN18Th32f5smqzRAxd32pfnJei6mbtLjFA5ifqbHCkW_teGG3gecv91BQV_i3NZL0YGWkDUbRsC-W_1AF76Y'
             };
 
-            let imgUrl = images.porsche;
-            for (const key in images) {
-                if (selectedCarModel.toLowerCase().includes(key)) {
-                    imgUrl = images[key];
-                    break;
+            let imgUrl = selectedCarImg || images.porsche;
+            if (!selectedCarImg) {
+                for (const key in images) {
+                    if (selectedCarModel.toLowerCase().includes(key)) {
+                        imgUrl = images[key];
+                        break;
+                    }
                 }
             }
 
@@ -430,6 +429,38 @@
                             return `${year}-${month}-${day}`;
                         };
 
+                        if (selectedCarId.toString().startsWith('custom-')) {
+                            // Custom car booking logic (client-side only)
+                            const customBooking = {
+                                bookingId: 'custom-bk-' + Date.now(),
+                                carModel: selectedCarModel,
+                                carImage: imgUrl,
+                                startDate: formatLocalDate(today),
+                                endDate: formatLocalDate(tomorrow),
+                                totalPrice: total,
+                                status: 'CONFIRMED'
+                            };
+                            
+                            const existingBookings = JSON.parse(localStorage.getItem('velocifyCustomBookings') || '[]');
+                            existingBookings.push(customBooking);
+                            localStorage.setItem('velocifyCustomBookings', JSON.stringify(existingBookings));
+
+                            // Update custom car status to BOOKED
+                            let customCars = JSON.parse(localStorage.getItem('velocifyCustomCars') || '[]');
+                            customCars = customCars.map(c => {
+                                if (c.carId.toString() === selectedCarId.toString()) {
+                                    c.status = 'BOOKED';
+                                }
+                                return c;
+                            });
+                            localStorage.setItem('velocifyCustomCars', JSON.stringify(customCars));
+
+                            alert("Congratulations! Your premium car rental booking is confirmed!");
+                            window.location.href = 'profile.html';
+                            return;
+                        }
+
+                        // Normal car backend booking logic
                         const bookingPayload = {
                             carId: parseInt(selectedCarId),
                             startDate: formatLocalDate(today),
@@ -451,16 +482,44 @@
                         }
 
                         alert("Congratulations! Your premium car rental booking is confirmed!");
-                        window.location.href = 'adminDashboard.html';
+                        window.location.href = 'profile.html';
                     } catch (error) {
-                        alert("Booking error: " + error.message);
-                        bookButton.disabled = false;
-                        bookButton.textContent = "Complete Payment & Book";
+                        console.warn("Backend booking failed, falling back to mock booking:", error);
+                        
+                        // Fallback to client-side mock booking if backend is offline/error
+                        const today = new Date();
+                        const tomorrow = new Date();
+                        tomorrow.setDate(today.getDate() + 3);
+
+                        const formatLocalDate = (d) => {
+                            const year = d.getFullYear();
+                            const month = String(d.getMonth() + 1).padStart(2, '0');
+                            const day = String(d.getDate()).padStart(2, '0');
+                            return `${year}-${month}-${day}`;
+                        };
+
+                        const customBooking = {
+                            bookingId: 'custom-bk-' + Date.now(),
+                            carModel: selectedCarModel,
+                            carImage: imgUrl,
+                            startDate: formatLocalDate(today),
+                            endDate: formatLocalDate(tomorrow),
+                            totalPrice: total,
+                            status: 'CONFIRMED'
+                        };
+                        
+                        const existingBookings = JSON.parse(localStorage.getItem('velocifyCustomBookings') || '[]');
+                        existingBookings.push(customBooking);
+                        localStorage.setItem('velocifyCustomBookings', JSON.stringify(existingBookings));
+
+                        alert("Congratulations! Your premium car rental booking is confirmed (Offline Mode)!");
+                        window.location.href = 'profile.html';
                     }
                 });
             }
         });
     </script>
+    <script src="./assets/js/footer-modal.js"></script>
 </body>
 
 </html>

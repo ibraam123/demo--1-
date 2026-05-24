@@ -127,8 +127,8 @@
                 <a class="text-blue-600 border-b-2 border-blue-600 pb-1" href="home.html">Rent</a>
                 <a class="text-slate-600 hover:text-blue-600 transition-colors duration-200" href="carPosting.html">List
                     a Car</a>
-                <a class="text-slate-600 hover:text-blue-600 transition-colors duration-200"
-                    href="adminDashboard.html">My Bookings</a>
+                <!-- <a class="text-slate-600 hover:text-blue-600 transition-colors duration-200"
+                    href="adminDashboard.html">Dashboard</a> -->
             </nav>
             <div class="flex items-center gap-4">
                 <button
@@ -158,14 +158,14 @@
                 class="bg-surface-container-lowest p-md rounded-xl shadow-[0px_4px_24px_rgba(33,150,243,0.08)] border border-outline-variant flex flex-col lg:flex-row items-center gap-gutter">
                 <div class="flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-sm">
                     <div class="flex flex-col gap-1.5">
-                        <label class="font-label-sm text-label-sm text-on-surface-variant px-1">Location</label>
+                        <label class="font-label-sm text-label-sm text-on-surface-variant px-1">Car Model</label>
                         <div class="relative">
                             <span
                                 class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline"
-                                data-icon="location_on">location_on</span>
+                                data-icon="location_on">directions_car</span>
                             <input
                                 class="w-full h-12 pl-10 pr-4 rounded-lg border border-outline-variant focus:border-primary-container focus:ring-0 font-body-md text-body-md outline-none transition-all"
-                                placeholder="Search city or airport" type="text" />
+                                placeholder="Search by car model" type="text" />
                         </div>
                     </div>
                     <div class="flex flex-col gap-1.5">
@@ -275,7 +275,6 @@
                     <p class="font-label-sm text-label-sm text-primary mb-1">Velocify Elite</p>
                     <p class="text-xs text-secondary leading-relaxed">Join our membership program to get 15% off all
                         bookings and skip-the-line pickup.</p>
-                    <button class="mt-sm text-xs font-bold text-primary hover:underline">Learn more</button>
                 </div>
             </aside>
             <!-- Car Listings Grid -->
@@ -317,7 +316,7 @@
                         </div>
                         <button
                             class="w-full py-3 bg-primary-container text-white font-button text-button rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98] transition-transform"
-                            onclick="window.location.href='carDetails.html'">Rent Now</button>
+                            onclick="selectCar(1, 'Porsche 911 Carrera', 320, 'slate', 2023)">Rent Now</button>
                     </div>
                 </div>
                 <!-- Car Card 2 -->
@@ -354,7 +353,7 @@
                         </div>
                         <button
                             class="w-full py-3 bg-primary-container text-white font-button text-button rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98] transition-transform"
-                            onclick="window.location.href='carDetails.html'">Rent Now</button>
+                            onclick="selectCar(2, 'Tesla Model X', 185, 'blue', 2023)">Rent Now</button>
                     </div>
                 </div>
                 <!-- Car Card 3 -->
@@ -388,7 +387,7 @@
                         </div>
                         <button
                             class="w-full py-3 bg-primary-container text-white font-button text-button rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98] transition-transform"
-                            onclick="window.location.href='carDetails.html'">Rent Now</button>
+                            onclick="selectCar(3, 'Audi A4 Sport', 110, 'white', 2023)">Rent Now</button>
                     </div>
                 </div>
                 <!-- Car Card 4 -->
@@ -427,7 +426,7 @@
                         </div>
                         <button
                             class="w-full py-3 bg-primary-container text-white font-button text-button rounded-lg hover:opacity-90 transition-opacity active:scale-[0.98] transition-transform"
-                            onclick="window.location.href='carDetails.html'">Rent Now</button>
+                            onclick="selectCar(4, 'Ferrari F8 Tributo', 890, 'red', 2023)">Rent Now</button>
                     </div>
                 </div>
             </div>
@@ -438,31 +437,18 @@
         <div class="max-w-7xl mx-auto py-12 px-6 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex flex-col gap-2">
                 <div class="text-lg font-bold text-slate-900">Velocify</div>
-                <p class="font-['Inter'] text-xs text-slate-500">© 2024 Velocify Technologies. All rights reserved.</p>
+                <p class="font-['Inter'] text-xs text-slate-500">© 2026 Velocify Technologies. All rights reserved.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-6">
                 <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 transition-colors duration-200 underline underline-offset-4"
                     href="#">Terms of Service</a>
                 <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 transition-colors duration-200 underline underline-offset-4"
                     href="#">Privacy Policy</a>
-                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 transition-colors duration-200 underline underline-offset-4"
-                    href="#">Cookie Settings</a>
-                <a class="font-['Inter'] text-xs text-slate-500 hover:text-blue-600 transition-colors duration-200 underline underline-offset-4"
-                    href="#">Contact Support</a>
-            </div>
-            <div class="flex gap-4">
-                <button
-                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 transition-colors">
-                    <span class="material-symbols-outlined text-lg" data-icon="language">language</span>
-                </button>
-                <button
-                    class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-600 hover:text-blue-600 transition-colors">
-                    <span class="material-symbols-outlined text-lg" data-icon="help_outline">help_outline</span>
-                </button>
             </div>
         </div>
     </footer>
     <script src="./assets/js/filters.js"></script>
+    <script src="./assets/js/footer-modal.js"></script>
 </body>
 
 </html>

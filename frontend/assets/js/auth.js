@@ -9,7 +9,7 @@ function register(email, password, fullName) {
         });
 
         alert("Registration successful!");
-        window.location.href = "home.html";
+        window.location.href = "../../frontend/home.html";
     })
     .catch((error) => {
         alert(error.message)
@@ -21,7 +21,7 @@ function login(email, password) {
     .then((userCredential) => {
       // console.log("User logged in:", userCredential.user);
       alert("Login successful!");
-      window.location.href = "home.html";
+      window.location.href = "../../frontend/home.html";
     })
     .catch((error) => {
       alert(error.message);
@@ -32,7 +32,7 @@ function logout() {
   signOut(auth)
     .then(() => {
       alert("Logged out successfully")
-      window.location.href = "login&register.html"
+      window.location.href = "../../login&register.html"
     })
     .catch((error) => alert(error.message));
 }
